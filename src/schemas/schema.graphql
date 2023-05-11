@@ -1,0 +1,17 @@
+input CreateOneSignalIntentInput {
+  data: String
+}
+
+"The response from the `createStripePaymentIntent` mutation"
+type CreateOneSignalPayload {
+  msg: String
+}
+
+extend type Mutation {
+  """
+  Create Stripe payment intent for the current cart and return a token
+  """
+  createNotificationIntent(
+    input: CreateOneSignalIntentInput!
+  ): CreateOneSignalPayload!
+}
