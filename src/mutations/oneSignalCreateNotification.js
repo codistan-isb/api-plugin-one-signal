@@ -1,8 +1,8 @@
-import ReactionError from "@reactioncommerce/reaction-error";
-import hashToken from "@reactioncommerce/api-utils/hashToken.js";
-import xformCartCheckout from "@reactioncommerce/api-plugin-carts/src/xforms/xformCartCheckout.js";
-import getStripeInstance from "../util/getStripeInstance.js";
-import OneSignal2 from "onesignal-node";
+// import ReactionError from "@reactioncommerce/reaction-error";
+// import hashToken from "@reactioncommerce/api-utils/hashToken.js";
+// import xformCartCheckout from "@reactioncommerce/api-plugin-carts/src/xforms/xformCartCheckout.js";
+// import getStripeInstance from "../util/getStripeInstance.js";
+import OneSignal from "onesignal-node";
 /**
  * @method oneSignalCreateNotification
  * @summary Creates a Stripe Payment Intent and return the client secret
@@ -13,7 +13,7 @@ import OneSignal2 from "onesignal-node";
 
 export default async function oneSignalCreateNotification(context, { data }) {
   console.log("In one Signal Mutation ", data);
-  const client2 = new OneSignal2.Client(
+  const client2 = new OneSignal.Client(
     "3bdc5391-8b89-43b1-a04b-0d9f8fb832d6",
     "ZjA3ZTg5NWUtZDA4Zi00MTBmLTkzMTItYzczYjBlMTJmMzg4"
   );
