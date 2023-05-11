@@ -1,8 +1,9 @@
-// import ReactionError from "@reactioncommerce/reaction-error";
-// import hashToken from "@reactioncommerce/api-utils/hashToken.js";
-// import xformCartCheckout from "@reactioncommerce/api-plugin-carts/src/xforms/xformCartCheckout.js";
-// import getStripeInstance from "../util/getStripeInstance.js";
+const CUSTOMER_ONESIGNAL_APP_ID = process.env.CUSTOMER_ONESIGNAL_APP_ID;
+const CUSTOMER_ONESIGNAL_REST_API_KEY = process.env.CUSTOMER_ONESIGNAL_REST_API_KEY;
+const RIDER_ONESIGNAL_APP_ID = process.env.RIDER_ONESIGNAL_APP_ID;
+const RIDER_ONESIGNAL_REST_API_KEY = process.env.RIDER_ONESIGNAL_REST_API_KEY;
 import OneSignal from "onesignal-node";
+// import { sendNotficationToSocket } from "../util/sendSocketNotification";
 /**
  * @method oneSignalCreateNotification
  * @summary Creates a Stripe Payment Intent and return the client secret
@@ -11,60 +12,85 @@ import OneSignal from "onesignal-node";
  * @return {Promise<String>} String with the client secret of the Payment Intent
  */
 
-export default async function oneSignalCreateNotification(context, { data }) {
-  console.log("In one Signal Mutation ", data);
-  const client2 = new OneSignal.Client(
-    "3bdc5391-8b89-43b1-a04b-0d9f8fb832d6",
-    "ZjA3ZTg5NWUtZDA4Zi00MTBmLTkzMTItYzczYjBlMTJmMzg4"
-  );
-  console.log(
-    "notification arguments "
-    // message,
-    // id,
-    // type,
-    // userId,
-    // secondaryId
-  );
+export default async function oneSignalCreateNotification(context, { message, id, appType, userId }) {
+  // console.log("In one Signal Mutation ", data);
+  // console.log("Message ", message)
+  // console.log("id ", id)
+  // console.log("type ", type)
+  // console.log("userId ", userId);
+  // console.log("CUSTOMER_ONESIGNAL_APP_ID, ", CUSTOMER_ONESIGNAL_APP_ID, "CUSTOMER_ONESIGNAL_REST_API_KEY ", CUSTOMER_ONESIGNAL_REST_API_KEY);
+  // console.log("RIDER_ONESIGNAL_APP_ID, ", RIDER_ONESIGNAL_APP_ID, "RIDER_ONESIGNAL_REST_API_KEY ", RIDER_ONESIGNAL_REST_API_KEY);
+
+  if (appType === 'customer') {
+    const riderClient = new OneSignal.Client(CUSTOMER_ONESIGNAL_APP_ID, CUSTOMER_ONESIGNAL_REST_API_KEY);
+    const notification = {
+      contents: {
+        en: message,
+      },
+      data: {
+        id: id,
+        type: appType
+      },
+      include_external_user_ids: [userId]
+    };
+    // console.log("notification obj for riderClient: ", notification);
+
+    const response = await riderClient.createNotification(notification);
+    if (response.statusCode === 200) {
+      return {
+        statusCode: 200,
+        msg: "Notification created",
+      }
+    }
+
+  }
+  else {
+    const customerClient = new OneSignal.Client(RIDER_ONESIGNAL_APP_ID, RIDER_ONESIGNAL_REST_API_KEY);
+    const notification = {
+      contents: {
+        en: message,
+      },
+      data: {
+        id: id,
+        type: appType
+      },
+      include_external_user_ids: [userId]
+    };
+    // console.log("notification obj for riderClient: ", notification);
+
+    const response = await customerClient.createNotification(notification);
+    if (response.statusCode === 200) {
+      return {
+        statusCode: 200,
+        msg: "Notification created",
+      }
+    }
+  }
+
 
   // const notification = {
   //   contents: {
-  //     en: "Shoaib new message",
+  //     en: "Hello, world!",
   //   },
-  //   data: {
-  //     id: "123",
-  //     type: "new message",
-  //   },
-  //   include_external_user_ids: ["456"],
+  //   include_external_user_ids: ["12345"],
   // };
 
-  // const respons = await client2.addDevice({
-  //   device_type: 5,
-  //   identifier: "id1",
-  // });
-  // console.log(respons.body);
+  // const response = await client2.createNotification(notification);
+  // const newnotfication = await new Notification({
+  //   message: message,
+  //   type: type,
+  //   id: id,
+  //   userId: userId,
+  //   status: type ? "Pending" : null
+  // }).save();
+  // console.log("newnotfication ", newnotfication)
+  // var sendNotificationEvent = await sendNotficationToSocket(id, newnotfication._id, userId);
+
+  // console.log("Response is ", response);
 
   // return {
-  //   msg: data,
+  //   msg: "Notification created",
   // };
-
-  const notification = {
-    contents: {
-      en: "Hello, world!",
-    },
-    include_external_user_ids: ["12345"],
-  };
-  console.log("notification obj is  ", notification);
-
-  // let dataview = await client2.viewDevice(
-  //   "4993d6b6-fef5-4b4a-bcbd-7e69e6d967c9"
-  // );
-  // console.log("Data view is ", dataview);
-  const response = await client2.createNotification(notification);
-  console.log("Response is ", response);
-
-  return {
-    msg: data,
-  };
 
   // const { accountId, collections } = context;
   // const { Cart } = collections;

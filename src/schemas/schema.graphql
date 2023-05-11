@@ -1,10 +1,18 @@
 input CreateOneSignalIntentInput {
-  data: String
+  message: String
+  id: ID
+  appType: appTypePayload
+  userId: ID
 }
 
+enum appTypePayload {
+  rider
+  customer
+}
 "The response from the `createStripePaymentIntent` mutation"
 type CreateOneSignalPayload {
   msg: String
+  statusCode: Int
 }
 
 extend type Mutation {

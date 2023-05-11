@@ -16,22 +16,27 @@
  */
 export default async function createNotificationIntent(
   parentResult,
-  { input },
-  context
+  args,
+  context,
+  info
 ) {
-  const { data } = input;
+  // console.log("In create notification  args ", args.input);
+  const message = args.input.message
+  const id = args.input.id
+  const appType = args.input.appType
+  const userId = args.input.userId
 
-  console.log("In create notification ", data);
+  // console.log("In create notification ", data);
   // console.log("Mutations are ", context.mutations);
   // const cartId = opaqueCartId ? decodeCartOpaqueId(opaqueCartId) : null;
   // const shopId = decodeShopOpaqueId(opaqueShopId);
 
   const paymentIntentClientSecret =
     await context.mutations.oneSignalCreateNotification(context, {
-      data,
+      message, id, appType, userId
     });
 
-  console.log("paymentIntentClientSecret ", paymentIntentClientSecret);
+  // console.log("paymentIntentClientSecret ", paymentIntentClientSecret);
 
   return paymentIntentClientSecret;
 }
