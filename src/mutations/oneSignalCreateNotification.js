@@ -6,17 +6,20 @@ const ADMIN_ONESIGNAL_APP_ID = process.env.ADMIN_ONESIGNAL_APP_ID;
 const ADMIN_ONESIGNAL_REST_API_KEY = process.env.ADMIN_ONESIGNAL_REST_API_KEY;
 import OneSignal from "onesignal-node";
 
+
 export default async function oneSignalCreateNotification(context, { message, id, appType, userId }) {
 
   if (appType === 'rider') {
     const riderClient = new OneSignal.Client(RIDER_ONESIGNAL_APP_ID, RIDER_ONESIGNAL_REST_API_KEY);
+    console.log("RIDER_ONESIGNAL_APP_ID ", RIDER_ONESIGNAL_APP_ID);
+    console.log("RIDER_ONESIGNAL_REST_API_KEY ", RIDER_ONESIGNAL_REST_API_KEY)
     const notification = {
       contents: {
         en: message,
       },
       data: {
         id: id,
-        type: appType
+        type: appType,
       },
       include_external_user_ids: [userId]
     };
@@ -42,7 +45,8 @@ export default async function oneSignalCreateNotification(context, { message, id
       },
       data: {
         id: id,
-        type: appType
+        type: appType,
+        orderID: orderID
       },
       include_external_user_ids: [userId]
     };
@@ -61,6 +65,8 @@ export default async function oneSignalCreateNotification(context, { message, id
   }
   if (appType === 'admin') {
     const adminClient = new OneSignal.Client(ADMIN_ONESIGNAL_APP_ID, ADMIN_ONESIGNAL_REST_API_KEY);
+    console.log("admin App id ", ADMIN_ONESIGNAL_APP_ID)
+    console.log("admin API key ", ADMIN_ONESIGNAL_REST_API_KEY)
     const notification = {
       contents: {
         en: message,

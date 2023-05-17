@@ -3,6 +3,7 @@ input CreateOneSignalIntentInput {
   id: ID
   appType: appTypePayload
   userId: ID
+  orderID: String
 }
 
 enum appTypePayload {

@@ -2,7 +2,7 @@
   "name": "@codistan-isb/api-plugin-one-signal",
   "description": "Boilerplate Example plugin for the Reaction API",
   "label": "api-plugin-one-signal",
-  "version": "1.0.5-development",
+  "version": "1.0.6-development",
   "main": "index.js",
   "type": "module",
   "engines": {
