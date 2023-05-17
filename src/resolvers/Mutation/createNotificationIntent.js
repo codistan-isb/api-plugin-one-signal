@@ -25,6 +25,7 @@ export default async function createNotificationIntent(
   const id = args.input.id
   const appType = args.input.appType
   const userId = args.input.userId
+  const orderID = args.input.orderID
 
   // console.log("In create notification ", data);
   // console.log("Mutations are ", context.mutations);
@@ -33,7 +34,7 @@ export default async function createNotificationIntent(
 
   const paymentIntentClientSecret =
     await context.mutations.oneSignalCreateNotification(context, {
-      message, id, appType, userId
+      message, id, appType, userId, orderID
     });
 
   // console.log("paymentIntentClientSecret ", paymentIntentClientSecret);
