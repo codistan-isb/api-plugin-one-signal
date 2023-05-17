@@ -8,8 +8,8 @@ import OneSignal from "onesignal-node";
 
 export default async function oneSignalCreateNotification(context, { message, id, appType, userId }) {
 
-  if (appType === 'customer') {
-    const riderClient = new OneSignal.Client(CUSTOMER_ONESIGNAL_APP_ID, CUSTOMER_ONESIGNAL_REST_API_KEY);
+  if (appType === 'rider') {
+    const riderClient = new OneSignal.Client(RIDER_ONESIGNAL_APP_ID, RIDER_ONESIGNAL_REST_API_KEY);
     const notification = {
       contents: {
         en: message,
@@ -32,8 +32,10 @@ export default async function oneSignalCreateNotification(context, { message, id
     }
 
   }
-  if (appType === 'rider') {
-    const customerClient = new OneSignal.Client(RIDER_ONESIGNAL_APP_ID, RIDER_ONESIGNAL_REST_API_KEY);
+  if (appType === 'customer') {
+    const customerClient = new OneSignal.Client(CUSTOMER_ONESIGNAL_APP_ID, CUSTOMER_ONESIGNAL_REST_API_KEY);
+
+    console.log("customerClient ", customerClient)
     const notification = {
       contents: {
         en: message,
@@ -58,7 +60,7 @@ export default async function oneSignalCreateNotification(context, { message, id
 
   }
   if (appType === 'admin') {
-    const customerClient = new OneSignal.Client(ADMIN_ONESIGNAL_APP_ID, ADMIN_ONESIGNAL_REST_API_KEY);
+    const adminClient = new OneSignal.Client(ADMIN_ONESIGNAL_APP_ID, ADMIN_ONESIGNAL_REST_API_KEY);
     const notification = {
       contents: {
         en: message,
@@ -69,10 +71,10 @@ export default async function oneSignalCreateNotification(context, { message, id
       },
       include_external_user_ids: [userId]
     };
-    console.log("notification obj for customer Client: ", notification);
+    console.log("notification obj for admin Client: ", notification);
 
-    const response = await customerClient.createNotification(notification);
-    console.log("customer Client response ", response)
+    const response = await adminClient.createNotification(notification);
+    console.log(" Admin response ", response)
     if (response.statusCode === 200) {
       return {
         statusCode: 200,
