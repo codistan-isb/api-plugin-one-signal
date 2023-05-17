@@ -7,7 +7,7 @@ const ADMIN_ONESIGNAL_REST_API_KEY = process.env.ADMIN_ONESIGNAL_REST_API_KEY;
 import OneSignal from "onesignal-node";
 
 
-export default async function oneSignalCreateNotification(context, { message, id, appType, userId }) {
+export default async function oneSignalCreateNotification(context, { message, id, appType, userId, orderID }) {
 
   if (appType === 'rider') {
     const riderClient = new OneSignal.Client(RIDER_ONESIGNAL_APP_ID, RIDER_ONESIGNAL_REST_API_KEY);
