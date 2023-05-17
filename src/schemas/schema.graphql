@@ -8,6 +8,7 @@ input CreateOneSignalIntentInput {
 enum appTypePayload {
   rider
   customer
+  admin
 }
 "The response from the `createStripePaymentIntent` mutation"
 type CreateOneSignalPayload {
