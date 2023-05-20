@@ -3,10 +3,10 @@ var { IS_PRODUCTION } = process.env
 import { ObjectId } from 'mongodb';
 // import { find } from '../models/User.js';
 async function sendNotficationToSocket(userId, notificationId, notifierId) {
-    console.log("userId, notificationId, notifierId ", userId, notificationId, notifierId)
-    notifierId = notifierId.toString()
-    userId = userId.toString()
-    notificationId = notificationId.toString()
+    console.log("userId, notificationId, notifierId ", userId, notificationId, notifierId);
+    notifierId = notifierId.toString();
+    userId = userId.toString();
+    notificationId = notificationId.toString();
     console.log("notifierId ", notifierId);
     var socketUrl;
     if (IS_PRODUCTION) {

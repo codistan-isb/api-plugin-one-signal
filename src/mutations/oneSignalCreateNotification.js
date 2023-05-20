@@ -11,8 +11,8 @@ export default async function oneSignalCreateNotification(context, { message, id
 
   if (appType === 'rider') {
     const riderClient = new OneSignal.Client(RIDER_ONESIGNAL_APP_ID, RIDER_ONESIGNAL_REST_API_KEY);
-    console.log("RIDER_ONESIGNAL_APP_ID ", RIDER_ONESIGNAL_APP_ID);
-    console.log("RIDER_ONESIGNAL_REST_API_KEY ", RIDER_ONESIGNAL_REST_API_KEY)
+    // console.log("RIDER_ONESIGNAL_APP_ID ", RIDER_ONESIGNAL_APP_ID);
+    // console.log("RIDER_ONESIGNAL_REST_API_KEY ", RIDER_ONESIGNAL_REST_API_KEY)
     const notification = {
       contents: {
         en: message,
@@ -20,13 +20,14 @@ export default async function oneSignalCreateNotification(context, { message, id
       data: {
         id: id,
         type: appType,
+        orderID:""
       },
       include_external_user_ids: [userId]
     };
-    console.log("notification obj for riderClient: ", notification);
+    // console.log("notification obj for riderClient: ", notification);
 
     const response = await riderClient.createNotification(notification);
-    console.log("rider Client response ", response)
+    // console.log("rider Client response ", response)
     if (response.statusCode === 200) {
       return {
         statusCode: 200,
@@ -38,7 +39,7 @@ export default async function oneSignalCreateNotification(context, { message, id
   if (appType === 'customer') {
     const customerClient = new OneSignal.Client(CUSTOMER_ONESIGNAL_APP_ID, CUSTOMER_ONESIGNAL_REST_API_KEY);
 
-    console.log("customerClient ", customerClient)
+    // console.log("customerClient ", customerClient)
     const notification = {
       contents: {
         en: message,
@@ -50,10 +51,10 @@ export default async function oneSignalCreateNotification(context, { message, id
       },
       include_external_user_ids: [userId]
     };
-    console.log("notification obj for customer Client: ", notification);
+    // console.log("notification obj for customer Client: ", notification);
 
     const response = await customerClient.createNotification(notification);
-    console.log("customer Client response ", response)
+    // console.log("customer Client response ", response)
     if (response.statusCode === 200) {
       return {
         statusCode: 200,
@@ -65,22 +66,23 @@ export default async function oneSignalCreateNotification(context, { message, id
   }
   if (appType === 'admin') {
     const adminClient = new OneSignal.Client(ADMIN_ONESIGNAL_APP_ID, ADMIN_ONESIGNAL_REST_API_KEY);
-    console.log("admin App id ", ADMIN_ONESIGNAL_APP_ID)
-    console.log("admin API key ", ADMIN_ONESIGNAL_REST_API_KEY)
+    // console.log("admin App id ", ADMIN_ONESIGNAL_APP_ID)
+    // console.log("admin API key ", ADMIN_ONESIGNAL_REST_API_KEY)
     const notification = {
       contents: {
         en: message,
       },
       data: {
         id: id,
-        type: appType
+        type: appType,
+        orderID:""
       },
       include_external_user_ids: [userId]
     };
-    console.log("notification obj for admin Client: ", notification);
+    // console.log("notification obj for admin Client: ", notification);
 
     const response = await adminClient.createNotification(notification);
-    console.log(" Admin response ", response)
+    // console.log(" Admin response ", response)
     if (response.statusCode === 200) {
       return {
         statusCode: 200,

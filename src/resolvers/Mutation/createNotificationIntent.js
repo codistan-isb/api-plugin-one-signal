@@ -24,7 +24,9 @@ export default async function createNotificationIntent(
   const message = args.input.message
   const id = args.input.id
   const appType = args.input.appType
-  const userId = args.input.userId
+  // const userId = args.input.userId 
+  const userId = args.input.userId || args.input.id || context.user.id;
+
   const orderID = args.input.orderID
 
   // console.log("In create notification ", data);
