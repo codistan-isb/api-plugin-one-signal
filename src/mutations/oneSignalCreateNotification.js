@@ -11,11 +11,11 @@ export default async function oneSignalCreateNotification(
   context,
   { message, id, appType, userId, orderID }
 ) {
-  // console.log("id ", id);
-  // console.log("message", message);
-  // console.log("appType", appType);
-  // console.log("userId", userId);
-  // console.log("orderID", orderID);
+  console.log("id ", id);
+  console.log("message", message);
+  console.log("appType", appType);
+  console.log("userId", userId);
+  console.log("orderID", orderID);
   if (appType === "rider") {
     const riderClient = new OneSignal.Client(
       RIDER_ONESIGNAL_APP_ID,
@@ -81,6 +81,10 @@ export default async function oneSignalCreateNotification(
     // console.log("allAdminUsers ", allAdminUsers[0]._id);
     let idsArray = allAdminUsers.map((user) => user._id);
     // console.log("allAdminUsers ", idsArray);
+    if (id) {
+      idsArray.push(id);
+    }
+    console.log("allAdminUsers ", idsArray);
 
     const adminClient = new OneSignal.Client(
       ADMIN_ONESIGNAL_APP_ID,
@@ -103,22 +107,22 @@ export default async function oneSignalCreateNotification(
     console.log("notification obj for admin Client: ", notification);
 
     const response = await adminClient.createNotification(notification);
-    if (id) {
-      const notification = {
-        contents: {
-          en: message,
-        },
-        data: {
-          id: id,
-          type: appType,
-          orderID: "",
-        },
-        // include_player_ids: ["4e997099-ff82-49ce-b45c-0ef5228e657b"],
-        include_external_user_ids: [id],
-      };
-      const response = await adminClient.createNotification(notification);
-      console.log("Inner Admin response ", response);
-    }
+    // if (id) {
+    //   const notification = {
+    //     contents: {
+    //       en: message,
+    //     },
+    //     data: {
+    //       id: id,
+    //       type: appType,
+    //       orderID: "",
+    //     },
+    //     // include_player_ids: ["4e997099-ff82-49ce-b45c-0ef5228e657b"],
+    //     include_external_user_ids: [id],
+    //   };
+    //   const response = await adminClient.createNotification(notification);
+    //   console.log("Inner Admin response ", response);
+    // }
     console.log(" Admin response ", response);
     if (response.statusCode === 200) {
       return {
