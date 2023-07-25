@@ -61,8 +61,8 @@ export default async function oneSignalCreateNotification(
         type: appType,
         orderID: orderID,
       },
-      include_player_ids: ["4e997099-ff82-49ce-b45c-0ef5228e657b"],
-      // include_external_user_ids: ["4e997099-ff82-49ce-b45c-0ef5228e657b"]
+      // include_player_ids: ["4e997099-ff82-49ce-b45c-0ef5228e657b"],
+      include_external_user_ids: [userId],
     };
     // console.log("notification obj for customer Client: ", notification);
 
