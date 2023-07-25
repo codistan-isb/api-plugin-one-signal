@@ -33,6 +33,7 @@ export default async function oneSignalCreateNotification(
         orderID: "",
       },
       include_external_user_ids: [userId],
+      channel_for_external_user_ids: "push",
     };
     // console.log("notification obj for riderClient: ", notification);
 
@@ -63,6 +64,7 @@ export default async function oneSignalCreateNotification(
       },
       // include_player_ids: ["4e997099-ff82-49ce-b45c-0ef5228e657b"],
       include_external_user_ids: [userId],
+      channel_for_external_user_ids: "push",
     };
     // console.log("notification obj for customer Client: ", notification);
 
@@ -78,9 +80,9 @@ export default async function oneSignalCreateNotification(
   if (appType === "admin") {
     const { Accounts } = context.collections;
     const allAdminUsers = await Accounts.find({ UserRole: "admin" }).toArray();
-    // console.log("allAdminUsers ", allAdminUsers[0]._id);
+    console.log("allAdminUsers ", allAdminUsers[0]._id);
     let idsArray = allAdminUsers.map((user) => user._id);
-    // console.log("allAdminUsers ", idsArray);
+    console.log("allAdminUsers ", idsArray);
     if (id) {
       idsArray.push(id);
     }
@@ -101,12 +103,21 @@ export default async function oneSignalCreateNotification(
         type: appType,
         orderID: "",
       },
-      // include_player_ids: ["4e997099-ff82-49ce-b45c-0ef5228e657b"],
+
       include_external_user_ids: idsArray,
+      channel_for_external_user_ids: "push",
+
+      // include_player_ids: ["4e997099-ff82-49ce-b45c-0ef5228e657b"],
+      // include_external_user_ids: idsArray,
     };
     console.log("notification obj for admin Client: ", notification);
-
-    const response = await adminClient.createNotification(notification);
+    let response;
+    try {
+      response = await adminClient.createNotification(notification);
+      console.log("response ", response);
+    } catch (error) {
+      console.log("Error", error);
+    }
     // if (id) {
     //   const notification = {
     //     contents: {
@@ -123,7 +134,7 @@ export default async function oneSignalCreateNotification(
     //   const response = await adminClient.createNotification(notification);
     //   console.log("Inner Admin response ", response);
     // }
-    console.log(" Admin response ", response);
+    // console.log(" Admin response ", response);
     if (response.statusCode === 200) {
       return {
         statusCode: 200,
