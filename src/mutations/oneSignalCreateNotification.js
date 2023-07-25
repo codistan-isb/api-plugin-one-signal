@@ -36,9 +36,13 @@ export default async function oneSignalCreateNotification(
       channel_for_external_user_ids: "push",
     };
     // console.log("notification obj for riderClient: ", notification);
-
-    const response = await riderClient.createNotification(notification);
-    // console.log("rider Client response ", response)
+    let response;
+    try {
+      response = await riderClient.createNotification(notification);
+      console.log("rider  response ", response);
+    } catch (error) {
+      console.log("Error ", error);
+    }
     if (response.statusCode === 200) {
       return {
         statusCode: 200,
@@ -67,9 +71,14 @@ export default async function oneSignalCreateNotification(
       channel_for_external_user_ids: "push",
     };
     // console.log("notification obj for customer Client: ", notification);
+    let response;
+    try {
+      response = await customerClient.createNotification(notification);
+      console.log("customer Client response ", response);
+    } catch (error) {
+      console.log("Error ", error);
+    }
 
-    const response = await customerClient.createNotification(notification);
-    console.log("customer Client response ", response);
     if (response.statusCode === 200) {
       return {
         statusCode: 200,
