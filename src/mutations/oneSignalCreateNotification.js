@@ -11,11 +11,11 @@ export default async function oneSignalCreateNotification(
   context,
   { message, id, appType, userId, orderID }
 ) {
-  // console.log("id ", id);
-  // console.log("message", message);
-  // console.log("appType", appType);
-  // console.log("userId", userId);
-  // console.log("orderID", orderID);
+  console.log("oneSignalCreateNotification id ", id);
+  console.log("oneSignalCreateNotification message", message);
+  console.log("oneSignalCreateNotification appType", appType);
+  console.log(" oneSignalCreateNotification userId", userId);
+  console.log("oneSignalCreateNotification orderID", orderID);
   if (appType === "rider") {
     const riderClient = new OneSignal.Client(
       RIDER_ONESIGNAL_APP_ID,
@@ -43,10 +43,15 @@ export default async function oneSignalCreateNotification(
     } catch (error) {
       console.log("Error ", error);
     }
-    if (response.statusCode === 200) {
+    if (response?.statusCode == 200) {
       return {
         statusCode: 200,
         msg: "Notification created",
+      };
+    } else {
+      return {
+        statusCode: 500,
+        msg: "Server Error",
       };
     }
   }
@@ -79,10 +84,15 @@ export default async function oneSignalCreateNotification(
       console.log("Error ", error);
     }
 
-    if (response.statusCode === 200) {
+    if (response?.statusCode == 200) {
       return {
         statusCode: 200,
         msg: "Notification created",
+      };
+    } else {
+      return {
+        statusCode: 500,
+        msg: "Server Error",
       };
     }
   }
@@ -144,10 +154,15 @@ export default async function oneSignalCreateNotification(
     //   console.log("Inner Admin response ", response);
     // }
     // console.log(" Admin response ", response);
-    if (response.statusCode === 200) {
+    if (response?.statusCode == 200) {
       return {
         statusCode: 200,
         msg: "Notification created",
+      };
+    } else {
+      return {
+        statusCode: 500,
+        msg: "Server Error",
       };
     }
   }
