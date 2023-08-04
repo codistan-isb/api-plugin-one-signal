@@ -2,7 +2,7 @@
   "name": "@codistan-isb/api-plugin-one-signal",
   "description": "Boilerplate Example plugin for the Reaction API",
   "label": "api-plugin-one-signal",
-  "version": "2.0.2-development",
+  "version": "2.0.3-development",
   "main": "index.js",
   "type": "module",
   "engines": {
@@ -27,6 +27,10 @@
   "sideEffects": false,
   "dependencies": {
     "@reactioncommerce/api-utils": "^1.16.9",
+    "express": "^4.18.2",
+    "express-graphql": "^0.12.0",
+    "graphql": "^16.7.1",
+    "node-cron": "^3.0.2",
     "onesignal-node": "^3.4.0",
     "socket.io-client": "^4.6.1"
   },

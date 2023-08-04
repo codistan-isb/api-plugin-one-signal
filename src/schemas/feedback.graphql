@@ -1,0 +1,68 @@
+type Feedback implements Node {
+  _id: ID!
+  customerName: String
+  customerEmail: String
+  customerPhone: String
+  branchName: String
+  foodRating: Int
+  serviceRating: Int
+  customerRemarks: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+input customerFeedbackInput {
+  customerOrderId: ID
+  customerName: String
+  customerEmail: String
+  customerPhone: String
+  branchName: String
+  foodRating: Int
+  serviceRating: Int
+  customerRemarks: String
+}
+enum FeedbackSortByField {
+  "Date and time the product was created"
+  createdAt
+
+  "Date and time the product was last updated"
+  updatedAt
+}
+type FeedbackEdge implements NodeEdge {
+  "The cursor that represents this node in the paginated results"
+  cursor: ConnectionCursor!
+  "The Order Report"
+  node: Feedback
+}
+type FeedbackConnection {
+  "The list of nodes that match the query, wrapped in an edge to provide a cursor string for each"
+  edges: [FeedbackEdge]
+  """
+  You can request the `nodes` directly to avoid the extra wrapping that `NodeEdge` has,
+  if you know you will not need to paginate the results.
+  """
+  nodes: [Feedback]
+  "Information to help a client request the next or previous page"
+  pageInfo: PageInfo!
+  "The total number of nodes that match your query"
+  totalCount: Int!
+}
+extend type Mutation {
+  createFeedback(input: customerFeedbackInput): Feedback
+}
+extend type Query {
+  getAllFeedback(
+    searchQuery: String
+    after: ConnectionCursor
+    # "Return only results that come before this cursor. Use this with `last` to specify the number of results to return."
+    before: ConnectionCursor
+    # "Return at most this many results. This parameter may be used with either `after` or `offset` parameters."
+    first: ConnectionLimitInt
+    # "Return at most this many results. This parameter may be used with the `before` parameter."
+    last: ConnectionLimitInt
+    # "Return only results that come after the Nth result. This parameter may be used with the `first` parameter."
+    offset: Int
+    # "Return results sorted in this order"
+    sortOrder: SortOrder = desc
+    sortBy: FeedbackSortByField = createdAt
+  ): FeedbackConnection!
+}

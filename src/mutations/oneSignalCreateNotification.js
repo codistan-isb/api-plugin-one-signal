@@ -11,11 +11,11 @@ export default async function oneSignalCreateNotification(
   context,
   { message, id, appType, userId, orderID }
 ) {
-  console.log("id ", id);
-  console.log("message", message);
-  console.log("appType", appType);
-  console.log("userId", userId);
-  console.log("orderID", orderID);
+  // console.log("id ", id);
+  // console.log("message", message);
+  // console.log("appType", appType);
+  // console.log("userId", userId);
+  // console.log("orderID", orderID);
   if (appType === "rider") {
     const riderClient = new OneSignal.Client(
       RIDER_ONESIGNAL_APP_ID,
@@ -39,7 +39,7 @@ export default async function oneSignalCreateNotification(
     let response;
     try {
       response = await riderClient.createNotification(notification);
-      console.log("rider  response ", response);
+      // console.log("rider  response ", response);
     } catch (error) {
       console.log("Error ", error);
     }
@@ -74,7 +74,7 @@ export default async function oneSignalCreateNotification(
     let response;
     try {
       response = await customerClient.createNotification(notification);
-      console.log("customer Client response ", response);
+      // console.log("customer Client response ", response);
     } catch (error) {
       console.log("Error ", error);
     }
@@ -89,13 +89,13 @@ export default async function oneSignalCreateNotification(
   if (appType === "admin") {
     const { Accounts } = context.collections;
     const allAdminUsers = await Accounts.find({ UserRole: "admin" }).toArray();
-    console.log("allAdminUsers ", allAdminUsers[0]._id);
+    // console.log("allAdminUsers ", allAdminUsers[0]._id);
     let idsArray = allAdminUsers.map((user) => user._id);
-    console.log("allAdminUsers ", idsArray);
+    // console.log("allAdminUsers ", idsArray);
     if (id) {
       idsArray.push(id);
     }
-    console.log("allAdminUsers ", idsArray);
+    // console.log("allAdminUsers ", idsArray);
 
     const adminClient = new OneSignal.Client(
       ADMIN_ONESIGNAL_APP_ID,
@@ -119,11 +119,11 @@ export default async function oneSignalCreateNotification(
       // include_player_ids: ["4e997099-ff82-49ce-b45c-0ef5228e657b"],
       // include_external_user_ids: idsArray,
     };
-    console.log("notification obj for admin Client: ", notification);
+    // console.log("notification obj for admin Client: ", notification);
     let response;
     try {
       response = await adminClient.createNotification(notification);
-      console.log("response ", response);
+      // console.log("response ", response);
     } catch (error) {
       console.log("Error", error);
     }

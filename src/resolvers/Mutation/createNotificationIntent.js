@@ -20,7 +20,7 @@ export default async function createNotificationIntent(
   context,
   info
 ) {
-  console.log("In create notification  args ", args.input);
+  // console.log("In create notification  args ", args.input);
   const message = args.input.message;
   const id = args.input.id;
   const appType = args.input.appType;
