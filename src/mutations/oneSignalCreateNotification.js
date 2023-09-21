@@ -47,6 +47,7 @@ export default async function oneSignalCreateNotification(
       // console.log("rider  response ", response);
     } catch (error) {
       console.log("Error ", error);
+      throw new ReactionError("access-denied", `${error}`);
     }
     if (response?.statusCode == 200) {
       return {
@@ -87,6 +88,7 @@ export default async function oneSignalCreateNotification(
       // console.log("customer Client response ", response);
     } catch (error) {
       console.log("Error ", error);
+      throw new ReactionError("access-denied", `${error}`);
     }
 
     if (response?.statusCode == 200) {
@@ -141,6 +143,8 @@ export default async function oneSignalCreateNotification(
       // console.log("response ", response);
     } catch (error) {
       console.log("Error", error);
+      throw new ReactionError("access-denied", `${error}`);
+
     }
     // if (id) {
     //   const notification = {
