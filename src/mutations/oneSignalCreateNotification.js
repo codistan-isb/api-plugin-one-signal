@@ -6,6 +6,7 @@ const RIDER_ONESIGNAL_REST_API_KEY = process.env.RIDER_ONESIGNAL_REST_API_KEY;
 const ADMIN_ONESIGNAL_APP_ID = process.env.ADMIN_ONESIGNAL_APP_ID;
 const ADMIN_ONESIGNAL_REST_API_KEY = process.env.ADMIN_ONESIGNAL_REST_API_KEY;
 import OneSignal from "onesignal-node";
+import ReactionError from "@reactioncommerce/reaction-error";
 
 export default async function oneSignalCreateNotification(
   context,
