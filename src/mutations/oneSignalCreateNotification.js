@@ -12,16 +12,16 @@ export default async function oneSignalCreateNotification(
   context,
   { message, id, appType, userId, orderID }
 ) {
-  console.log("oneSignalCreateNotification id ", id);
-  console.log("oneSignalCreateNotification message", message);
-  console.log("oneSignalCreateNotification appType", appType);
-  console.log(" oneSignalCreateNotification userId", userId);
-  console.log("oneSignalCreateNotification orderID", orderID);
-  console.log("CUSTOMER_ONESIGNAL_APP_ID ", CUSTOMER_ONESIGNAL_APP_ID);
-  console.log(
-    "CUSTOMER_ONESIGNAL_REST_API_KEY ",
-    CUSTOMER_ONESIGNAL_REST_API_KEY
-  );
+  // console.log("oneSignalCreateNotification id ", id);
+  // console.log("oneSignalCreateNotification message", message);
+  // console.log("oneSignalCreateNotification appType", appType);
+  // console.log(" oneSignalCreateNotification userId", userId);
+  // console.log("oneSignalCreateNotification orderID", orderID);
+  // console.log("CUSTOMER_ONESIGNAL_APP_ID ", CUSTOMER_ONESIGNAL_APP_ID);
+  // console.log(
+  //   "CUSTOMER_ONESIGNAL_REST_API_KEY ",
+  //   CUSTOMER_ONESIGNAL_REST_API_KEY
+  // );
   if (appType === "rider") {
     const riderClient = new OneSignal.Client(
       RIDER_ONESIGNAL_APP_ID,
